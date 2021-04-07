@@ -1,0 +1,177 @@
+definitions:
+  models.AddPatnerMaster:
+    properties:
+      address:
+        type: string
+      group_name:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      name:
+        type: string
+    type: object
+  models.ResponseModelList:
+    properties:
+      all_column:
+        type: string
+      data:
+        type: object
+      define_column:
+        type: string
+      define_size:
+        type: string
+      last_page:
+        type: integer
+      message:
+        type: string
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  tool.ResponseModel:
+    properties:
+      data:
+        type: object
+      message:
+        description: Code int         `json:"code"`
+        type: string
+    type: object
+info:
+  contact:
+    email: nuryantofattih@gmail.com
+    name: Nuryanto
+    url: https://www.linkedin.com/in/nuryanto-1b2721156/
+  description: REST API for Capter Cukur-in
+  title: Capster Cukur-in
+  version: "1.0"
+paths:
+  /web/patner/patner_master:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: PerPage
+        in: query
+        name: perpage
+        required: true
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      - description: InitSearch
+        in: query
+        name: initsearch
+        type: string
+      - description: SortField
+        in: query
+        name: sortfield
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseModelList'
+      security:
+      - ApiKeyAuth: []
+      summary: GetList PatnerMaster
+      tags:
+      - PatnerMaster
+    post:
+      parameters:
+      - description: 'req param #changes are possible to adjust the form of the registration form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddPatnerMaster'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Add PatnerMaster
+      tags:
+      - PatnerMaster
+  /web/patner/patner_master/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete PatnerMaster
+      tags:
+      - PatnerMaster
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: GetById
+      tags:
+      - PatnerMaster
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'req param #changes are possible to adjust the form of the registration form from frontend'
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddPatnerMaster'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Rubah PatnerMaster
+      tags:
+      - PatnerMaster
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

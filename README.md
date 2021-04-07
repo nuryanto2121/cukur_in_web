@@ -1,2 +1,3 @@
-# cukur_in_teguk
-membuat cron job utk mengirim email ke user yang telah selesai cukur
+# cukur_in_web
+1. job untuk kirim redem teguk email ke user yg finish cukur
+2. export data export utk admin
