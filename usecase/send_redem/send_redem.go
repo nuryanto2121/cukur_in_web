@@ -7,14 +7,16 @@ import (
 	util "nuryanto2121/cukur_in_web/pkg/utils"
 	repopatnermaster "nuryanto2121/cukur_in_web/repository/patner_master"
 	"strings"
+	"time"
 )
 
 type SendRedem struct {
-	Email     string  `json:"email"`
-	Name      string  `json:"name"`
-	RedemCd   string  `json:"redem_cd"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Email       string    `json:"email"`
+	Name        string    `json:"name"`
+	RedemCd     string    `json:"redem_cd"`
+	Latitude    float64   `json:"latitude"`
+	Longitude   float64   `json:"longitude"`
+	ExpiredDate time.Time `json:"expired_date"`
 }
 
 func (R *SendRedem) SendEmail() error {
@@ -45,6 +47,7 @@ func getVerifyBody(R *SendRedem) string {
 
 	redemHTML = strings.ReplaceAll(redemHTML, `{Name}`, R.Name)
 	redemHTML = strings.ReplaceAll(redemHTML, `{RedemCd}`, R.RedemCd)
+	redemHTML = strings.ReplaceAll(redemHTML, `{ExpiredDate}`, R.ExpiredDate.Format("02 January 2006"))
 	redemHTML = strings.ReplaceAll(redemHTML, `{Outlet}`, stOutlet)
 	return redemHTML
 }

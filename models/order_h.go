@@ -21,15 +21,15 @@ type OrderH struct {
 }
 
 type OrderPost struct {
-	OrderID    int       `json:"order_id" gorm:"type:integer"`
-	BarberID   int       `json:"barber_id" gorm:"type:integer"`
-	BarberName string    `json:"barber_name" gorm:"type:varchar(60)"`
-	Latitude   float64   `json:"latitude" gorm:"type:float8"`
-	Longitude  float64   `json:"longitude" gorm:"type:float8"`
-	UserID     int       `json:"user_id,omitempty" gorm:"type:integer"`
-	Name       string    `json:"name,omitempty" gorm:"type:varchar(100)"`
-	Email      string    `json:"email,omitempty" gorm:"type:varchar(60)"`
-	OrderDate  time.Time `json:"order_date" gorm:"type:timestamp(0) without time zone;default:now()"`
+	OrderID     int       `json:"order_id" gorm:"type:integer"`
+	BarberID    int       `json:"barber_id" gorm:"type:integer"`
+	BarberName  string    `json:"barber_name" gorm:"type:varchar(60)"`
+	Latitude    float64   `json:"latitude" gorm:"type:float8"`
+	Longitude   float64   `json:"longitude" gorm:"type:float8"`
+	UserID      int       `json:"user_id,omitempty" gorm:"type:integer"`
+	Name        string    `json:"name,omitempty" gorm:"type:varchar(100)"`
+	Email       string    `json:"email,omitempty" gorm:"type:varchar(60)"`
+	ExpiredDate time.Time `json:"expired_date" gorm:"type:timestamp(0) without time zone;default:now()"`
 }
 
 type OrderList struct {

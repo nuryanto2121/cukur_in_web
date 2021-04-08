@@ -13,7 +13,7 @@ const (
 			<p style="text-align: left;">Tunjukkan kode voucher berikut di outlet Teguk Indonesia dimanapun</p>
 			<p style="text-align: left;">Kode Voucher: {RedemCd}
 		
-				<br />Tanggal Berlaku: s/d 30 April 2021
+				<br />Tanggal Berlaku: s/d {ExpiredDate}
 	
 			</p>
 			<p style="text-align: left;">S&amp;K:

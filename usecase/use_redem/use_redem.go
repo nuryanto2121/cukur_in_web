@@ -37,11 +37,12 @@ func ProsesRedem() {
 
 			// send emaail here
 			MailService := &sendredem.SendRedem{
-				Email:     data.Email,
-				Name:      data.Name,
-				RedemCd:   RedemCd,
-				Latitude:  data.Latitude,
-				Longitude: data.Longitude,
+				Email:       data.Email,
+				Name:        data.Name,
+				RedemCd:     RedemCd,
+				Latitude:    data.Latitude,
+				Longitude:   data.Longitude,
+				ExpiredDate: data.ExpiredDate,
 			}
 
 			// go MailService.SendEmail()
