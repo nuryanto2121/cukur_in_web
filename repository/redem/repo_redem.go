@@ -34,7 +34,7 @@ func (db *RepoRedem) CountRedem() int {
 		result int64 = 0
 	)
 
-	query := db.Conn.Model(&models.RedemTeguk{}).Where(`order_id is null`).Count(&result)
+	query := db.Conn.Model(&models.RedemTeguk{}).Where(`order_id = 0`).Count(&result)
 	log.Printf(fmt.Sprintf("%v", query))
 	err := query.Error
 	if err != nil {
@@ -50,6 +50,36 @@ func (db *RepoRedem) Update(RedemCd string, data interface{}) error {
 		err    error
 	)
 	query := db.Conn.Model(models.RedemTeguk{}).Where("redem_cd = ?", RedemCd).Updates(data)
+	logger.Query(fmt.Sprintf("%v", query)) //cath to log query string
+	err = query.Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *RepoRedem) Insert(data []*models.RedemTeguk) error {
+	var (
+		logger = logging.Logger{}
+		err    error
+	)
+	query := db.Conn.Create(&data)
+	logger.Query(fmt.Sprintf("%v", query)) //cath to log query string
+	err = query.Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *RepoRedem) Delete() error {
+
+	var (
+		logger = logging.Logger{}
+		err    error
+	)
+
+	query := db.Conn.Exec(`DELETE FROM redem_teguk`)
 	logger.Query(fmt.Sprintf("%v", query)) //cath to log query string
 	err = query.Error
 	if err != nil {

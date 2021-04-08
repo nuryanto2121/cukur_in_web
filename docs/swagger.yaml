@@ -48,6 +48,29 @@ info:
   title: Capster Cukur-in
   version: "1.0"
 paths:
+  /api/import_redem:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload file excel data redem
+      parameters:
+      - description: Data Redem
+        in: formData
+        name: import_redem
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tool.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      summary: Import Redem
+      tags:
+      - FileUpload
   /web/patner/patner_master:
     get:
       parameters:
