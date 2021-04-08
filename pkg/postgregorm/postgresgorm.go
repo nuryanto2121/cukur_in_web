@@ -2,6 +2,7 @@ package postgresgorm
 
 import (
 	"fmt"
+	"nuryanto2121/cukur_in_web/models"
 	"nuryanto2121/cukur_in_web/pkg/setting"
 
 	// "job_cukur-in/pkg/setting"
@@ -66,6 +67,7 @@ func Setup() {
 	// sqlDB.Sing
 	// Conn.DB().SetMaxIdleConns(10)
 	// Conn.DB().SetMaxOpenConns(100)
+	go autoMigrate()
 
 	timeSpent := time.Since(now)
 	log.Printf("Config database is ready in %v", timeSpent)
@@ -76,4 +78,36 @@ func addExtraSpaceIfExist(str string) string {
 		return " " + str
 	}
 	return ""
+}
+
+func autoMigrate() {
+	// Add auto migrate bellow this line
+	Trx, err := Conn.DB()
+	if err != nil {
+		log.Printf("connection.setup autoMigrate err : %v", err)
+		// panic(err)
+	}
+	rest, err := Trx.Exec(`
+		
+
+	`)
+
+	log.Printf("%v", rest)
+	if err != nil {
+		log.Printf(" : %v", err)
+		panic(err)
+	}
+
+	log.Println("STARTING AUTO MIGRATE ")
+	Conn.AutoMigrate(
+		models.PatnerMaster{},
+		models.RedemTeguk{},
+	// models.BarberFavorit{},
+	// models.FeedbackRating{},
+	// models.BookingCapster{},
+	// models.Notification{},
+	// models.Advertise{},
+	)
+
+	log.Println("FINISHING AUTO MIGRATE ")
 }
