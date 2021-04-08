@@ -29,9 +29,13 @@ func ProsesRedem() {
 		}
 
 		for _, data := range OrderList { // looping transaksi yg telah finish
-			RedemCd := rpRedem.RedemCode()
+			DataRedemCd, err := rpRedem.FirstGetData()
+			if err != nil {
+				fmt.Printf("%v", err)
+				// log.Fatalln(err)
+			}
 			// _ = RedemCd
-			if RedemCd == "" {
+			if DataRedemCd == nil || DataRedemCd.RedemCd == "" {
 				continue
 			}
 
@@ -39,14 +43,14 @@ func ProsesRedem() {
 			MailService := &sendredem.SendRedem{
 				Email:       data.Email,
 				Name:        data.Name,
-				RedemCd:     RedemCd,
+				RedemCd:     DataRedemCd.RedemCd,
 				Latitude:    data.Latitude,
 				Longitude:   data.Longitude,
-				ExpiredDate: data.ExpiredDate,
+				ExpiredDate: DataRedemCd.ExpiredDate,
 			}
 
 			// go MailService.SendEmail()
-			err := MailService.SendEmail()
+			err = MailService.SendEmail()
 			if err != nil {
 				fmt.Printf("%v", err)
 				log.Fatalln(err)
@@ -58,7 +62,7 @@ func ProsesRedem() {
 				"barber_id": data.BarberID,
 				// "user_edit": data.Email,
 			}
-			err = rpRedem.Update(RedemCd, UpdateRedem)
+			err = rpRedem.Update(DataRedemCd.RedemCd, UpdateRedem)
 			if err != nil {
 				fmt.Printf("%v", err)
 				log.Fatalln(err)
