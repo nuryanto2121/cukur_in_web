@@ -28,7 +28,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/import_redem": {
+        "/web-service/api/import_redem": {
             "post": {
                 "security": [
                     {
@@ -65,7 +65,7 @@ var doc = `{
                 }
             }
         },
-        "/web/patner/patner_master": {
+        "/web-service/web/patner/patner_master": {
             "get": {
                 "security": [
                     {
@@ -156,7 +156,7 @@ var doc = `{
                 }
             }
         },
-        "/web/patner/patner_master/{id}": {
+        "/web-service/web/patner/patner_master/{id}": {
             "get": {
                 "security": [
                     {

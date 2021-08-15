@@ -53,7 +53,7 @@ func (u *contPatnerMaster) HealthCheck(c echo.Context) error {
 // @Produce  json
 // @Param id path string true "ID"
 // @Success 200 {object} tool.ResponseModel
-// @Router /web/patner/patner_master/{id} [get]
+// @Router /web-service/web/patner/patner_master/{id} [get]
 func (u *contPatnerMaster) GetDataBy(e echo.Context) error {
 	ctx := e.Request().Context()
 	if ctx == nil {
@@ -93,7 +93,7 @@ func (u *contPatnerMaster) GetDataBy(e echo.Context) error {
 // @Param initsearch query string false "InitSearch"
 // @Param sortfield query string false "SortField"
 // @Success 200 {object} models.ResponseModelList
-// @Router /web/patner/patner_master [get]
+// @Router /web-service/web/patner/patner_master [get]
 func (u *contPatnerMaster) GetList(e echo.Context) error {
 	ctx := e.Request().Context()
 	if ctx == nil {
@@ -133,7 +133,7 @@ func (u *contPatnerMaster) GetList(e echo.Context) error {
 // @Produce json
 // @Param req body models.AddPatnerMaster true "req param #changes are possible to adjust the form of the registration form from frontend"
 // @Success 200 {object} tool.ResponseModel
-// @Router /web/patner/patner_master [post]
+// @Router /web-service/web/patner/patner_master [post]
 func (u *contPatnerMaster) Create(e echo.Context) error {
 	ctx := e.Request().Context()
 	if ctx == nil {
@@ -173,7 +173,7 @@ func (u *contPatnerMaster) Create(e echo.Context) error {
 // @Param id path string true "ID"
 // @Param req body models.AddPatnerMaster true "req param #changes are possible to adjust the form of the registration form from frontend"
 // @Success 200 {object} tool.ResponseModel
-// @Router /web/patner/patner_master/{id} [put]
+// @Router /web-service/web/patner/patner_master/{id} [put]
 func (u *contPatnerMaster) Update(e echo.Context) error {
 	ctx := e.Request().Context()
 	if ctx == nil {
@@ -222,7 +222,7 @@ func (u *contPatnerMaster) Update(e echo.Context) error {
 // @Produce  json
 // @Param id path string true "ID"
 // @Success 200 {object} tool.ResponseModel
-// @Router /web/patner/patner_master/{id} [delete]
+// @Router /web-service/web/patner/patner_master/{id} [delete]
 func (u *contPatnerMaster) Delete(e echo.Context) error {
 	ctx := e.Request().Context()
 	if ctx == nil {

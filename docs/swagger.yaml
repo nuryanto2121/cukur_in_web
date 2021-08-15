@@ -48,7 +48,7 @@ info:
   title: Capster Cukur-in
   version: "1.0"
 paths:
-  /api/import_redem:
+  /web-service/api/import_redem:
     post:
       consumes:
       - multipart/form-data
@@ -71,7 +71,7 @@ paths:
       summary: Import Redem
       tags:
       - FileUpload
-  /web/patner/patner_master:
+  /web-service/web/patner/patner_master:
     get:
       parameters:
       - description: Page
@@ -128,7 +128,7 @@ paths:
       summary: Add PatnerMaster
       tags:
       - PatnerMaster
-  /web/patner/patner_master/{id}:
+  /web-service/web/patner/patner_master/{id}:
     delete:
       parameters:
       - description: ID

@@ -45,7 +45,7 @@ func NewContFileUpload(e *echo.Echo, useRedemTeguk iimportredem.Usecase) {
 // @Produce json
 // @Param import_redem formData file true "Data Redem"
 // @Success 200 {object} tool.ResponseModel
-// @Router /api/import_redem [post]
+// @Router /web-service/api/import_redem [post]
 func (u *ContFileUpload) ImportRedem(e echo.Context) (err error) {
 	ctx := e.Request().Context()
 	if ctx == nil {
