@@ -27,7 +27,7 @@
         "image_allow_ext": ".jpg,.jpeg,.png",
         "export_save_path": "wwwroot/export/",
         "qr_code": "wwwroot/qr_code/",
-        "log_save_path": "logs/",
+        "log_save_path": "logs/", 
         "log_save_name": "log",
         "log_file_ext": "log",
         "time_format": 20060102,
