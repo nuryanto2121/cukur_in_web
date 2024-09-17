@@ -1,15 +1,8 @@
 package useredem
 
-import (
-	"fmt"
-	"log"
-	postgresgorm "nuryanto2121/cukur_in_web/pkg/postgregorm"
-	reporedem "nuryanto2121/cukur_in_web/repository/redem"
-	repoorder "nuryanto2121/cukur_in_web/repository/repo_order"
-	sendredem "nuryanto2121/cukur_in_web/usecase/send_redem"
-)
-
-func ProsesRedem() {
+//sudah tidak digunakan
+/*
+func ProsesRedem(ctx context.Context) {
 	rpRedem := &reporedem.RepoRedem{
 		Conn: postgresgorm.Conn,
 	}
@@ -18,11 +11,12 @@ func ProsesRedem() {
 	rpOrder := &repoorder.RepoOrder{
 		Conn: postgresgorm.Conn,
 	}
+	repoOrder := repoorder
 	_ = rpOrder
 
 	CntRedem := rpRedem.CountRedem()
 	if CntRedem > 0 { // check masih ada redem apa gk
-		OrderList, err := rpOrder.DataOrder()
+		OrderList, err := rpOrder.GetDataOrderWithTeguk(ctx)
 		if err != nil {
 			fmt.Printf("%v", err)
 			log.Fatalln(err)
@@ -72,3 +66,4 @@ func ProsesRedem() {
 		}
 	}
 }
+*/

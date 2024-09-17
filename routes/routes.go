@@ -15,15 +15,17 @@ import (
 	"nuryanto2121/cukur_in_web/pkg/setting"
 	"time"
 
+	"nuryanto2121/cukur_in_web/redisdb"
+
 	"github.com/labstack/echo/v4"
 )
 
-//Echo :
+// Echo :
 type EchoRoutes struct {
 	E *echo.Echo
 }
 
-func (e *EchoRoutes) InitialRouter() {
+func (e *EchoRoutes) InitialRouter(redis *redisdb.RedisHandler) {
 	timeoutContext := time.Duration(setting.FileConfigSetting.Server.ReadTimeout) * time.Second
 
 	repoPatnerMaster := _repoPatnerMaster.NewRepoPatnerMaster(postgresgorm.Conn)

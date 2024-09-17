@@ -55,3 +55,17 @@ type OrderList struct {
 type OrderStatus struct {
 	Status string `json:"status" `
 }
+
+type OrderNotif struct {
+	TimeArrive   int64     `json:"time_arrive" gorm:"time_arrive;type:integer"`
+	OrderID      int       `json:"order_id" gorm:"primary_key;auto_increment:true"`
+	OrderNo      string    `json:"order_no" gorm:"type:varchar(20)"`
+	CapsterID    int       `json:"capster_id" gorm:"type:integer"`
+	OrderDate    time.Time `json:"order_date" gorm:"type:timestamp(0) without time zone"`
+	UserID       int       `json:"user_id" gorm:"type:integer"`
+	CustomerName string    `json:"customer_name" gorm:"type:varchar(60);not null"`
+}
+
+func (OrderNotif) TableName() string {
+	return "order_h"
+}

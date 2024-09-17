@@ -1,19 +1,23 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"nuryanto2121/cukur_in_web/pkg/logging"
-	"nuryanto2121/cukur_in_web/pkg/monggodb"
 	"nuryanto2121/cukur_in_web/routes"
+	"time"
 
 	postgresgorm "nuryanto2121/cukur_in_web/pkg/postgregorm"
 	// postgresgorm "job_cukur-in/pkg/postgregorm"
 	"nuryanto2121/cukur_in_web/pkg/setting"
 	"nuryanto2121/cukur_in_web/redisdb"
-	useredem "nuryanto2121/cukur_in_web/usecase/use_redem"
 
-	"github.com/jasonlvhit/gocron"
+	_repoNotification "nuryanto2121/cukur_in_web/repository/notification"
+	_repoOrder "nuryanto2121/cukur_in_web/repository/order"
+	_useNotification "nuryanto2121/cukur_in_web/usecase/notification"
+
+	"github.com/go-co-op/gocron"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -22,8 +26,8 @@ func init() {
 	setting.Setup()
 	// postgresdb.Setup()
 	postgresgorm.Setup()
-	redisdb.Setup()
-	monggodb.Setup()
+
+	// monggodb.Setup()
 	logging.Setup()
 
 }
@@ -51,9 +55,10 @@ func main() {
 	// e.Use(jwt.JWT(e))
 	// e.Debug = false
 
+	redisHandler := redisdb.New()
 	R := routes.EchoRoutes{E: e}
 
-	R.InitialRouter()
+	R.InitialRouter(redisHandler)
 
 	sPort := fmt.Sprintf(":%d", setting.FileConfigSetting.Server.HTTPPort)
 	// maxHeaderBytes := 1 << 60
@@ -65,20 +70,35 @@ func main() {
 	// }
 	// log.Fatal(e.StartServer(s))
 	//s.ListenAndServe()
-	go runCrond()
+	go runCrond(redisHandler)
 	log.Fatal(e.Start(sPort))
 
 	//log.Fatal(e.StartServer(s))
 
 }
 
-func runCrond() {
+func runCrond(redis *redisdb.RedisHandler) {
+	// var logger = logging.Logger{}
+	repoOrder := _repoOrder.NewRepoOrder(postgresgorm.Conn)
+	repoNotif := _repoNotification.NewRepoNotification(postgresgorm.Conn)
+	useNotif := _useNotification.NewUseNotification(repoNotif, repoOrder, redis)
 	//sc := setting.FileConfigSetting.Server.Seconds
-	gocron.Every(1).Minutes().Do(RedemTegukin)
+	// gocron.Every(1).Minutes().Do(RedemTegukin(redis))
+	useNotif.NotifArriveOnTimeUser(context.Background())
+	s := gocron.NewScheduler(time.UTC)
 
-	<-gocron.Start()
-}
+	// Schedule the runJob function to run every minute
+	// _, err := s.Every(10).Seconds().Do(func() {
+	// 	useNotif.NotifArriveOnTimeUser(context.Background())
+	// 	// if err := NotifArriveOnTimeUsers(redis); err != nil {
+	// 	// 	log.Println("Error executing job:", err)
+	// 	// }
+	// })
+	// if err != nil {
+	// 	// log.Fatal(err)
+	// 	logger.Error("[Cron-Job][SendNotifOnTimeUser]", err)
+	// }
 
-func RedemTegukin() {
-	useredem.ProsesRedem()
+	// Start the scheduler asynchronously
+	s.StartAsync()
 }

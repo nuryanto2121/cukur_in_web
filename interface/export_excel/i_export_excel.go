@@ -3,7 +3,7 @@ package iexportexcel
 import (
 	"nuryanto2121/cukur_in_web/models"
 
-	"github.com/360EntSecGroup-Skylar/excelize/v2"
+	"github.com/xuri/excelize/v2"
 )
 
 type Repository interface {
