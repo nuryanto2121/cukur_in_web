@@ -61,6 +61,7 @@ type App struct {
 	Issuer            string   `mapstructure:"issuer"`
 	UrlForgotPassword string   `mapstructure:"url_forgot_password"`
 	UrlVerityUser     string   `mapstructure:"url_verity_user"`
+	ProjectID         string   `mapstructure:"project_id"`
 }
 
 // RedisDB :

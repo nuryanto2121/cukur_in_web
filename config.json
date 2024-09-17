@@ -32,7 +32,8 @@
         "log_file_ext": "log",
         "time_format": 20060102,
         "issuer": "PropertyFramework",
-        "url_forgot_password":"http://localhost:8084"
+        "url_forgot_password":"http://localhost:8084",
+        "project_id":"cukurin-802c4"
     },
     "database": {
         "type": "postgres",

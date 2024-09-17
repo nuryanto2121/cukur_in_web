@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"nuryanto2121/cukur_in_web/pkg/setting"
 
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/messaging"
@@ -25,7 +26,9 @@ func (s *SendFCM) SendPushNotification() error {
 
 	opt := option.WithCredentialsFile("FCM-Key.json")
 	// app, err := firebase.NewApp(context.Background(), nil, opt)
-	app, err := firebase.NewApp(context.Background(), nil, opt)
+	app, err := firebase.NewApp(context.Background(), &firebase.Config{
+		ProjectID: setting.FileConfigSetting.App.ProjectID,
+	}, opt)
 	if err != nil {
 		return fmt.Errorf("error initializing app: %v", err)
 	}
@@ -37,7 +40,7 @@ func (s *SendFCM) SendPushNotification() error {
 
 	message := &messaging.MulticastMessage{
 		Data: map[string]string{
-			"jumlah_notif": fmt.Sprintf("%d", s.JumlahNotif), 
+			"jumlah_notif": fmt.Sprintf("%d", s.JumlahNotif),
 			// "time":  "2:45",
 		},
 		Tokens: s.DeviceToken,

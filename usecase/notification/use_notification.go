@@ -94,7 +94,6 @@ func (u *useNotification) NotifArriveOnTimeUser(ctx context.Context) error {
 	var (
 		logger = logging.Logger{}
 	)
-
 	orders, err := u.repoOrder.GetDataOrderStatusArriveOnTime(ctx)
 	if err != nil {
 		return err
@@ -108,8 +107,16 @@ func (u *useNotification) NotifArriveOnTimeUser(ctx context.Context) error {
 		}
 		//process send notif
 		userFCM := fmt.Sprintf("%v", u.redis.GetSession(ctx, strconv.Itoa(val.UserID)+"_fcm"))
+		// timeReminder := fmt.Sprintf("%d",val.TimeArrive < 0 :val.TimeArrive*-1:1)
+		timeReminder := fmt.Sprintf("%d", func() int {
+			if val.TimeArrive < 0 {
+				return val.TimeArrive * -1
+			}
+			return val.TimeArrive
+		}())
+
 		err = u.Create(ctx, userFCM, &models.AddNotification{
-			Title:              "30 Menit Lagi: Waktunya Gaya di Barber!",
+			Title:              fmt.Sprintf("%s Menit Lagi: Waktunya Gaya di Barber!", timeReminder),
 			Descs:              "Persiapkan dirimu, waktu booking di barber sebentar lagi! Kamu akan tampil keren dalam 30 menit. Segera datang dan siap-siap jadi pusat perhatian!",
 			NotificationStatus: "N",
 			NotificationType:   "I",

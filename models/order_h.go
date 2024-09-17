@@ -57,7 +57,7 @@ type OrderStatus struct {
 }
 
 type OrderNotif struct {
-	TimeArrive   int64     `json:"time_arrive" gorm:"time_arrive;type:integer"`
+	TimeArrive   int       `json:"time_arrive" gorm:"type:integer"`
 	OrderID      int       `json:"order_id" gorm:"primary_key;auto_increment:true"`
 	OrderNo      string    `json:"order_no" gorm:"type:varchar(20)"`
 	CapsterID    int       `json:"capster_id" gorm:"type:integer"`
