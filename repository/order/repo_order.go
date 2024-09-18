@@ -32,14 +32,14 @@ func (r *repoOrder) GetDataOrderWithTeguk(ctx context.Context) (result []*models
 // GetDataOrderStatusArriveOnTime implements iorder.Repository.
 func (r *repoOrder) GetDataOrderStatusArriveOnTime(ctx context.Context) (result []*models.OrderNotif, err error) {
 
-	// intervalNotif30, intervalNotif15 := -30, -15
+	intervalNotif30, intervalNotif15 := -30, -15
 	// orders := []*models.OrderH{}
 	if err := r.Conn.WithContext(ctx).Select(`(EXTRACT(EPOCH FROM (localtimestamp - order_date)) / 60)::int as time_arrive,order_id,order_no,status,user_id,customer_name,capster_id,order_date`).
 		Where("status = ?", "N").
-		// Where(`
-		// 	((EXTRACT(EPOCH FROM (localtimestamp - order_date)) / 60)::int =?
-		// 	or (EXTRACT(EPOCH FROM (localtimestamp - order_date)) / 60)::int =?)`,
-		// 	intervalNotif30, intervalNotif15).
+		Where(`
+			((EXTRACT(EPOCH FROM (localtimestamp - order_date)) / 60)::int =?
+			or (EXTRACT(EPOCH FROM (localtimestamp - order_date)) / 60)::int =?)`,
+			intervalNotif30, intervalNotif15).
 		Find(&result).Error; err != nil {
 		return nil, err
 	}

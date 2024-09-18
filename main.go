@@ -78,26 +78,24 @@ func main() {
 }
 
 func runCrond(redis *redisdb.RedisHandler) {
-	// var logger = logging.Logger{}
+	var logger = logging.Logger{}
 	repoOrder := _repoOrder.NewRepoOrder(postgresgorm.Conn)
 	repoNotif := _repoNotification.NewRepoNotification(postgresgorm.Conn)
 	useNotif := _useNotification.NewUseNotification(repoNotif, repoOrder, redis)
 	//sc := setting.FileConfigSetting.Server.Seconds
 	// gocron.Every(1).Minutes().Do(RedemTegukin(redis))
-	useNotif.NotifArriveOnTimeUser(context.Background())
+	// // useNotif.NotifArriveOnTimeUser(context.Background())
 	s := gocron.NewScheduler(time.UTC)
 
 	// Schedule the runJob function to run every minute
-	// _, err := s.Every(10).Seconds().Do(func() {
-	// 	useNotif.NotifArriveOnTimeUser(context.Background())
-	// 	// if err := NotifArriveOnTimeUsers(redis); err != nil {
-	// 	// 	log.Println("Error executing job:", err)
-	// 	// }
-	// })
-	// if err != nil {
-	// 	// log.Fatal(err)
-	// 	logger.Error("[Cron-Job][SendNotifOnTimeUser]", err)
-	// }
+	_, err := s.Every(1).Minutes().Do(func() {
+		//check order_date yang mendekati 30 dan 15 menit sebelum
+		useNotif.NotifArriveOnTimeUser(context.Background())
+	})
+	if err != nil {
+		// log.Fatal(err)
+		logger.Error("[Cron-Job][SendNotifOnTimeUser]", err)
+	}
 
 	// Start the scheduler asynchronously
 	s.StartAsync()
