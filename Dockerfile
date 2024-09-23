@@ -3,7 +3,7 @@
 # Dockerfile References: https://docs.docker.com/engine/reference/builder/
 
 # Start from the latest golang base image
-FROM golang:1.15.3 as builder
+FROM golang:1.22.3 as builder
 
 # Add Maintainer Info
 LABEL maintainer="Nuryanto <nuryantofattih@gmail.com>"
@@ -50,7 +50,7 @@ COPY --from=builder /app/config_prod.json .
 COPY --from=builder /app/FCM-Key.json .
 
 # Expose port 8080 to the outside world
-EXPOSE 9092
+EXPOSE 9099
 
 # Declare volumes to mount
 VOLUME [${LOG_DIR}]
