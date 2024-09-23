@@ -29,7 +29,7 @@ func NewContPatnerMaster(e *echo.Echo, a ipatnermaster.Usecase) {
 		usePatnerMaster: a,
 	}
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/web-service/swagger/*", echoSwagger.WrapHandler)
 	e.GET("/health_check", controller.HealthCheck)
 
 	r := e.Group("/web/patner/patner_master")

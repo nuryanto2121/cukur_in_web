@@ -32,7 +32,7 @@ func init() {
 
 }
 
-// @title Capster Cukur-in
+// @title Web Cukur-in
 // @version 1.0
 // @description REST API for Capter Cukur-in
 
